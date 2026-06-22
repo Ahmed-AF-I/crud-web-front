@@ -1,73 +1,97 @@
-# React + TypeScript + Vite
+# basic-crud (crud-web-front)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React frontend for a simple CRUD application. This repository contains a lightweight UI that communicates with a REST API to create, read, update and delete items (e.g., users, tasks or products).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- List view with pagination and search
+- Item create / edit forms with validation
+- Item detail and delete flow with confirmation
+- Environment-configurable API base URL
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 16+ (or compatible LTS)
+- npm or yarn
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clone the repo:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+   git clone https://github.com/Ahmed-AF-I/crud-web-front.git
+   cd crud-web-front
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. Install dependencies:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+   npm install
+   # or
+   yarn
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Environment
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a .env file in the project root or set env vars in your host. The app expects:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- REACT_APP_API_BASE_URL - base URL for the backend API (e.g. http://localhost:4000/api)
+
+Example .env:
+
+REACT_APP_API_BASE_URL=http://localhost:4000/api
+
+## Available scripts
+
+- npm start: Runs the app in development mode (hot reload)
+- npm run build: Builds the app for production into the `build/` directory
+- npm test: Runs test suite (if present)
+- npm run lint: Lints the codebase (if configured)
+
+Run development server:
+
+npm start
+
+Build for production:
+
+npm run build
+
+## API contract (expected)
+
+The frontend expects a JSON REST API with typical CRUD endpoints for the resource `items` (replace with actual resource name):
+
+- GET /items         -> list items (optional query params: page, q)
+- GET /items/:id     -> get single item
+- POST /items        -> create item (JSON body)
+- PUT /items/:id     -> update item (JSON body)
+- DELETE /items/:id  -> delete item
+
+Adjust endpoints or adapter code if your backend uses different routes/naming.
+
+## Folder structure (typical)
+
+- src/
+  - components/    # shared UI components
+  - pages/         # route pages (List, Create, Edit, Detail)
+  - services/      # API calls and adapters
+  - hooks/         # reusable hooks
+  - App.js, index.js
+
+## Contributing
+
+- Create an issue for feature requests or bugs
+- Open a PR with a clear description and tests if applicable
+
+## Deployment
+
+Build with `npm run build` and serve the `build/` folder with any static host (Netlify, Vercel, Surge, or a static file server). Ensure REACT_APP_API_BASE_URL points to the production API.
+
+## Troubleshooting
+
+- If the app can't reach the API, verify REACT_APP_API_BASE_URL and CORS settings on the backend.
+- For build issues, check Node/npm versions and `npm install` output.
+
+## License
+
+MIT
+
+---
+
+Author: Ahmed-AF-I
+Repository: https://github.com/Ahmed-AF-I/crud-web-front
